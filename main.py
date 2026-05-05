@@ -41,7 +41,10 @@ def main():
             print(f"Failed to fetch HTML for {url} even with Selenium.")
 
     if all_scraped_data:
-        storage.save(all_scraped_data, OUTPUT_FILENAME)
+        # Save in different formats
+        storage.save(all_scraped_data, OUTPUT_FILENAME.replace(".json", ".json"))
+        storage.save_to_csv(all_scraped_data, OUTPUT_FILENAME.replace(".json", ".csv"))
+        storage.save_to_xlsx(all_scraped_data, OUTPUT_FILENAME.replace(".json", ".xlsx"))
     else:
         print("No data was scraped.")
 
