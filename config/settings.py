@@ -1,7 +1,3 @@
-TARGET_URLS = [
-    "https://books.toscrape.com/"
-]
-
 # Add more URLs here as needed
 
 OUTPUT_FILENAME = "scraped_data.json"

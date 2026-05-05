@@ -9,6 +9,7 @@ A web scraping tool designed to extract product information from e-commerce webs
 - Supports multiple output formats (JSON, CSV, Excel)
 - Configurable user agents and browser settings
 - Headless browser support for JavaScript-heavy sites
+- Interactive user prompts for product, URL, and save location input
 
 ## Installation
 
@@ -28,7 +29,6 @@ A web scraping tool designed to extract product information from e-commerce webs
 ## Configuration
 
 Edit `config/settings.py` to customize:
-- TARGET_URLS: List of URLs to scrape
 - OUTPUT_FILENAME: Default output filename
 - USER_AGENT: Browser user agent string
 - HEADLESS_BROWSER: Whether to run browser in headless mode
@@ -40,6 +40,11 @@ Run the scraper:
 python main.py
 ```
 
+When you run the script, you'll be prompted to enter:
+1. The product you want to search for
+2. The URL to scrape (or press Enter for default)
+3. The directory where you want to save the files (or press Enter for current directory)
+
 ## Project Structure
 
 ```
@@ -50,6 +55,7 @@ product-research-bot/
 ├── src/
 │   ├── scraper.py
 │   ├── parser.py
+│   ├── product_parser.py
 │   ├── storage.py
 │   └── utils/
 │       ├── browser.py
@@ -57,6 +63,7 @@ product-research-bot/
 │       └── helpers.py
 ├── main.py
 ├── requirements.txt
+├── WORKFLOW.md
 └── README.md
 ```
 

@@ -8,11 +8,19 @@ The Product Research Bot is a web scraping tool designed to extract product info
 
 ### 1. Entry Point (main.py)
 - Initializes the scraper, parser, and storage components
-- Iterates through configured target URLs
+- Prompts user for product name, target URL, and save location
 - Attempts to fetch each page using requests first, with Selenium as a fallback for JavaScript-heavy sites
 - Processes and stores scraped data in multiple formats
 
-### 2. Scraping Process
+### 2. User Input Process
+
+#### Interactive Prompts
+When the script is run, it will prompt the user for:
+1. Product name to search for
+2. Target URL to scrape
+3. Directory to save the output files
+
+### 3. Scraping Process
 
 #### Initial Request Attempt
 - Uses the `requests` library to fetch HTML content
@@ -24,38 +32,34 @@ The Product Research Bot is a web scraping tool designed to extract product info
 - Particularly useful for dynamic websites that require JavaScript execution
 - Uses headless Chrome browser by default for better performance
 
-### 3. Data Processing
+### 4. Data Processing
 
 #### HTML Parsing
 - Uses BeautifulSoup library for parsing HTML content
-- Extracts relevant data based on CSS selectors defined in config/selectors.json
-- The BaseParser class provides a foundation for site-specific parsing logic
-
-#### Data Extraction
-- Extracts product information such as names, prices, descriptions, etc.
+- Extracts relevant product data using the ProductParser class
 - Handles data transformation and cleaning
 
-### 4. Storage and Output
+### 5. Storage and Output
 
 #### Multiple Format Support
 - JSON (.json)
 - CSV (.csv)
 - Excel (.xlsx)
 
-#### Data Persistence
+#### Custom Save Locations
+- Users can specify a custom directory to save the output files
+- If the directory doesn't exist, it will be created automatically
 - All scraped data is saved with the BaseStorage class
-- Handles file operations and error management
-- Provides both saving and loading capabilities
 
 ## Component Interaction Flow
 
-1. **Configuration**: The application starts by reading settings from `config/settings.py` which defines target URLs and output preferences.
+1. **User Input**: The application starts by asking the user for a product name, URL, and save location.
 
 2. **Scraping**: The `BaseScraper` attempts to fetch content using `requests` first, then falls back to Selenium.
 
-3. **Parsing**: The `BaseParser` processes the HTML content and extracts relevant data.
+3. **Parsing**: The `ProductParser` processes the HTML content and extracts relevant product data.
 
-4. **Storage**: The `BaseStorage` class handles saving the extracted data in multiple formats.
+4. **Storage**: The `BaseStorage` class handles saving the extracted data in multiple formats to the user-specified location.
 
 ## Technical Details
 
@@ -71,13 +75,16 @@ The Product Research Bot is a web scraping tool designed to extract product info
 - Network errors are caught and logged
 - Fallback mechanisms ensure robust scraping
 - Data validation and cleaning before storage
+- Directory creation if needed
 
 ### Configuration Files
-- `config/settings.py`: Application settings including target URLs and output preferences
-- `config/selectors.json`: CSS selectors for data extraction
+- `config/settings.py`: Application settings including output preferences
+- `config/selectors.json`: CSS selectors for data extraction (currently not used but available for future enhancements)
 
 ## Usage Workflow
-1. Configure target URLs in `config/settings.py`
-2. Run `python main.py`
-3. The application will iterate through all configured URLs
-4. Data is saved in the configured output formats
+1. Run `python main.py`
+2. Enter the product name when prompted
+3. Enter the URL when prompted (or press Enter for default)
+4. Enter the directory where you want to save the files (or press Enter for current directory)
+5. The application will scrape the specified URL for the product
+6. Data is saved in the specified directory in the configured output formats
